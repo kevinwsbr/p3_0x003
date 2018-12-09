@@ -255,6 +255,18 @@ class Project {
             $db->bindValue(':idresponsible', $_POST['id_responsible'], PDO::PARAM_STR);
             
             $db->execute();
+
+            $sql='SELECT ID FROM `projects` WHERE `title` = :projTitle;';
+
+            $db=$this->db->prepare($sql);
+            $db->bindValue(':projTitle', $_POST['title'], PDO::PARAM_STR);
+
+            $db->execute();
+
+            $pro = $db->fetch(PDO::FETCH_ASSOC);
+
+            $this->insertCollaborators($pro['ID'], $_POST['id_responsible']);
+
             header('Location: index.php');
         }
     }

@@ -91,7 +91,7 @@ $project->finalizeDraft();
                     <?php } ?>
                 </div>
             </div>
-            <button type="submit" class="btn btn-success mb-4">Cadastrar</button>
+            <button type="submit" class="btn btn-success mb-4">Iniciar projeto</button>
         </form>
   </section>
   <script src="assets/js/jquery.min.js"></script>
