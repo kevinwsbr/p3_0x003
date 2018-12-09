@@ -58,6 +58,15 @@ class Collaborator {
         return $db->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getGraduationStudents() {
+        $sql='SELECT * FROM `collaborators` WHERE `role` = "grad_student";';
+
+        $db=$this->db->prepare($sql);
+        $db->execute();
+
+        return $db->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getProjects($collaboratorID) {
         $sql='SELECT `projects`.`title` FROM `projects` INNER JOIN `projects_and_collaborators` ON `projects_and_collaborators`.`id_project` = `projects`.`ID` AND `projects_and_collaborators`.`id_collaborator` = :collaboratorID ORDER BY `projects`.`end_date` DESC;';
 

@@ -4,11 +4,13 @@ require_once 'configs/Database.php';
 require_once 'configs/Collaborator.php';
 require_once 'configs/Project.php';
 require_once 'configs/Publication.php';
+require_once 'configs/Orientation.php';
 
 $conn = new Database();
 $collaborator = new Collaborator($conn->db);
 $project = new Project($conn->db);
 $publication = new Publication($conn->db);
+$orientation = new Orientation($conn->db);
 
 $collaboratorsNumber = $collaborator->getNumberOfCollaborators();
 $projectsNumber = $project->getNumberOfProjects();
@@ -16,6 +18,7 @@ $completedProjectsNumber = $project->getNumberOfSpecificProjects("completed");
 $inProgressProjectsNumber = $project->getNumberOfSpecificProjects("in_progress");
 $inPreparationProjectsNumber = $project->getNumberOfSpecificProjects("in_preparation");
 $publicationsNumber = $publication->getNumberOfPublications();
+$orientationsNumber = $orientation->getNumberOfOrientations();
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +53,7 @@ $publicationsNumber = $publication->getNumberOfPublications();
         </div>
         <div class="col">
           <h5>Número total de produções</h5>
-          <p><?=$collaboratorsNumber.' publicações'?></p>
+          <p><?=$collaboratorsNumber.' publicações'?> e <?=$orientationsNumber.' orientações'?></p>
         </div>
       </div>
       <div class="row">

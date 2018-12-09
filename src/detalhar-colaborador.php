@@ -4,16 +4,19 @@ require_once 'configs/Database.php';
 require_once 'configs/Collaborator.php';
 require_once 'configs/Project.php';
 require_once 'configs/Publication.php';
+require_once 'configs/Orientation.php';
 
 $conn = new Database();
 $collaborator = new Collaborator($conn->db);
 $project = new Project($conn->db);
 $publication = new Publication($conn->db);
+$orientation = new Orientation($conn->db);
 
 $collaborator->getCollaborator($_GET['id']);
 $projects = $collaborator->getProjects($_GET['id']);
 $publications = $collaborator->getPublications($_GET['id']);
 $inProProjects = $collaborator->getInProgressProjects($_GET['id']);
+$orientations = $orientation->getOrientationsOf($_GET['id']);
 ?>
 
 <!DOCTYPE html>
@@ -74,6 +77,10 @@ $inProProjects = $collaborator->getInProgressProjects($_GET['id']);
           <h5>Publicações realizadas</h5>
           <?php foreach ($publications as $pub) { ?>
             <span class="d-block"><?=$pub['title']?> (<?=$pub['year']?>)</span>
+          <?php } ?>
+          <h5 class="mt-4">Orientações</h5>
+          <?php foreach ($orientations as $ori) { ?>
+            <span class="d-block"><?=$ori['title']?> (<?=$ori['year']?>)</span>
           <?php } ?>
         </div>
       </div>
