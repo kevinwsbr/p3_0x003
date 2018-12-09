@@ -113,6 +113,38 @@ class Project {
         return $db->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getNumberOfPublications($projectID) {
+        $sql = 'SELECT * from `publications` WHERE `id_project` = :idProject;';
+
+        $db=$this->db->prepare($sql);
+        
+        $db->bindValue(':idProject', $projectID, PDO::PARAM_STR);
+        $db->execute(); 
+            
+        return $db->rowCount();
+    }
+
+    public function completeProject() {
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+            if($this->getNumberOfPublications($_GET['id']) > 0) {
+                $sql='UPDATE `projects` SET `status` = "completed" WHERE `ID` = :projectID;';
+                $db=$this->db->prepare($sql);
+
+                $db->bindValue(':projectID', $_GET['id'], PDO::PARAM_STR);
+                $db->execute();
+            }
+        }
+    }
+
+    public function getCompletedProjects() {
+        $sql = 'SELECT * from `projects` WHERE `status` = "completed";';
+
+        $db=$this->db->prepare($sql);
+        $db->execute();
+
+        return $db->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function insertCollaborators ($idProject, $idCollaborator) {
          $sql='INSERT INTO `projects_and_collaborators` (`id_project`, `id_collaborator`) VALUES (:idProject, :idCollaborator);';
             

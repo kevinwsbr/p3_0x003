@@ -44,35 +44,35 @@ $project->finalizeDraft();
           
           <div class="form-group">
             <label for="objective">Objetivo</label>
-            <textarea class="form-control" id="objective" name="objective" rows="3"><?=$project->getObjective()?></textarea>
+            <textarea required class="form-control" id="objective" name="objective" rows="3"><?=$project->getObjective()?></textarea>
           </div>
           <div class="form-group">
             <label for="description">Descrição</label>
-            <textarea class="form-control" id="description" name="description" rows="5"><?=$project->getDescription()?></textarea>
+            <textarea required class="form-control" id="description" name="description" rows="5"><?=$project->getDescription()?></textarea>
           </div>
           <div class="row">
               <div class="col">
                   <div class="form-group">
                     <label for="financed_amount">Custo</label>
-                    <input type="text" name="financed_amount" class="form-control" id="financed_amount" value="<?=$project->getFinancedAmount()?>">
+                    <input required type="text" name="financed_amount" class="form-control" id="financed_amount" value="<?=$project->getFinancedAmount()?>">
                 </div>
               </div>
               <div class="col">
                   <div class="form-group">
                     <label for="funding_agency">Entidade financiadora</label>
-                    <input type="text" name="funding_agency" class="form-control" id="funding_agency" value="<?=$project->getFundingAgency()?>">
+                    <input required type="text" name="funding_agency" class="form-control" id="funding_agency" value="<?=$project->getFundingAgency()?>">
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                     <label for="start_date">Data de início</label>
-                    <input type="date" name="start_date" class="form-control" id="start_date" value="<?php if(!empty($project->getStartDate())) { echo date("Y-m-d", strtotime($project->getStartDate())); } ?>">
+                    <input required type="date" name="start_date" class="form-control" id="start_date" value="<?php if(!empty($project->getStartDate())) { echo date("Y-m-d", strtotime($project->getStartDate())); } ?>">
                 </div>
               </div>
               <div class="col">
                   <div class="form-group">
                     <label for="end_date">Data de término</label>
-                    <input type="date" name="end_date" class="form-control" id="end_date" value="<?php if(!empty($project->getEndDate())) { echo date("Y-m-d", strtotime($project->getEndDate())); } ?>">
+                    <input required type="date" name="end_date" class="form-control" id="end_date" value="<?php if(!empty($project->getEndDate())) { echo date("Y-m-d", strtotime($project->getEndDate())); } ?>">
                 </div>
               </div>
           </div>
