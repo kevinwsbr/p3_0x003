@@ -68,8 +68,6 @@ class Project {
         return $this->idResponsible;
     }
 
-
-
     public function setData($project) {
         $this->ID = $project['ID'];
         $this->title = $project['title'];
@@ -145,6 +143,28 @@ class Project {
         return $db->rowCount();
     }
 
+    public function getCollaboratorsName($projectID) {
+        $sql = 'SELECT `collaborators`.`name` from `projects` INNER JOIN `projects_and_collaborators` ON `projects_and_collaborators`.`id_project` = `projects`.`ID` INNER JOIN `collaborators` ON `projects_and_collaborators`.`id_collaborator` = `collaborators`.`ID` WHERE `projects`.`ID` = :projectID;';
+
+        $db=$this->db->prepare($sql);
+
+        $db->bindValue(':projectID', $projectID, PDO::PARAM_STR);
+        $db->execute();
+
+        return $db->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getPublications($projectID) {
+        $sql = 'SELECT * FROM `publications` WHERE `id_project` = :projectID ORDER BY `year` DESC;';
+
+        $db=$this->db->prepare($sql);
+
+        $db->bindValue(':projectID', $projectID, PDO::PARAM_STR);
+        $db->execute();
+
+        return $db->fetchAll(PDO::FETCH_ASSOC);
+    }
+ 
     public function completeProject() {
         if ($_SERVER['REQUEST_METHOD']=='GET') {
             if($this->getNumberOfPublications($_GET['id']) > 0) {

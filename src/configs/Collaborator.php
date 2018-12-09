@@ -58,6 +58,42 @@ class Collaborator {
         return $db->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getProjects($collaboratorID) {
+        $sql='SELECT `projects`.`title` FROM `projects` INNER JOIN `projects_and_collaborators` ON `projects_and_collaborators`.`id_project` = `projects`.`ID` AND `projects_and_collaborators`.`id_collaborator` = :collaboratorID ORDER BY `projects`.`end_date` DESC;';
+
+        $db=$this->db->prepare($sql);
+
+        $db->bindValue(':collaboratorID', $collaboratorID, PDO::PARAM_STR);
+
+        $db->execute();
+
+        return $db->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getPublications($collaboratorID) {
+        $sql='SELECT * FROM `publications` INNER JOIN `publications_and_collaborators` ON `publications_and_collaborators`.`id_publication` = `publications`.`ID` AND `publications_and_collaborators`.`id_collaborator` = :collaboratorID ORDER BY `publications`.`year` DESC;';
+
+        $db=$this->db->prepare($sql);
+
+        $db->bindValue(':collaboratorID', $collaboratorID, PDO::PARAM_STR);
+
+        $db->execute();
+
+        return $db->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getInProgressProjects($collaboratorID) {
+        $sql='SELECT `projects`.`title` FROM `projects` INNER JOIN `projects_and_collaborators` ON `projects_and_collaborators`.`id_project` = `projects`.`ID` AND `projects_and_collaborators`.`id_collaborator` = :collaboratorID AND `projects`.`status` = "in_progress" ORDER BY `projects`.`end_date` DESC;';
+
+        $db=$this->db->prepare($sql);
+
+        $db->bindValue(':collaboratorID', $collaboratorID, PDO::PARAM_STR);
+
+        $db->execute();
+
+        return $db->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function setData($collaborator)
     {
         $this->ID = $collaborator['ID'];
