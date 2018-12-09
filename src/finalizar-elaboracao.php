@@ -81,14 +81,16 @@ $project->finalizeDraft();
         <div class="col col-3">
             <h4>Membros do projeto</h4>
             <div class="dropdown-divider"></div>
-            <?php foreach ($collaborators as $col) { ?>
+            <?php foreach ($collaborators as $col) {
+              if(($col['role'] == "grad_student" && $collaborator->isStudentAvailable($col['ID'])) || $col['role'] != "grad_student") {  
+              ?>
                 <div class="form-check">
                     <input class="form-check-input" name="members[]" type="checkbox" value="<?=$col['ID']?>" id="check_<?=$col['ID']?>">
                     <label class="form-check-label" for="check_<?=$col['ID']?>">
                             <?php echo $col['name']; ?>
                         </label>
                     </div>
-                    <?php } ?>
+                    <?php } } ?>
                 </div>
             </div>
             <button type="submit" class="btn btn-success mb-4">Iniciar projeto</button>
