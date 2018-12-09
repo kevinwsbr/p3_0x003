@@ -81,7 +81,7 @@ $publication->register();
                     <?php } ?>
                 </div>
             </div>
-          <button type="submit" class="btn btn-success mb-4">Cadastrar</button>
+          <button type="submit" class="btn btn-success mb-4">Cadastrar publicação</button>
         </form>
       </div>
     </div>

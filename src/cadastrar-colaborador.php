@@ -59,7 +59,7 @@ $collaborator->register();
             </div>
           </div>
 
-          <button type="submit" class="btn btn-success">Cadastrar</button>
+          <button type="submit" class="btn btn-success">Cadastrar colaborador</button>
         </form>
       </div>
     </div>
