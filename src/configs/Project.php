@@ -124,6 +124,27 @@ class Project {
         return $db->rowCount();
     }
 
+    public function getNumberOfProjects() {
+        $sql = 'SELECT * from `projects`;';
+
+        $db=$this->db->prepare($sql);
+        $db->execute(); 
+            
+        return $db->rowCount();
+    }
+
+    public function getNumberOfSpecificProjects($status) {
+        $sql = 'SELECT * from `projects` WHERE `status` = :status;';
+
+        $db=$this->db->prepare($sql);
+
+        $db->bindValue(':status', $status, PDO::PARAM_STR);
+
+        $db->execute(); 
+            
+        return $db->rowCount();
+    }
+
     public function completeProject() {
         if ($_SERVER['REQUEST_METHOD']=='GET') {
             if($this->getNumberOfPublications($_GET['id']) > 0) {

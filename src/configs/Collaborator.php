@@ -77,6 +77,16 @@ class Collaborator {
         return $db->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getNumberOfCollaborators()
+    {
+        $sql='SELECT * FROM `collaborators`;';
+
+        $db=$this->db->prepare($sql);
+        $db->execute();
+
+        return $db->rowCount();
+    }
+
     public function getCollaboratorsExcept($collaboratorID)
     {
         $sql='SELECT * FROM `collaborators` WHERE `ID` != :collaboratorID;';

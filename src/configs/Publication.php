@@ -55,35 +55,14 @@ class Publication {
         return $db->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /*public function getProject() {
-        if ($_SERVER['REQUEST_METHOD']=='GET') {
-            $sql='SELECT * FROM `projects` WHERE `ID` = :ID ;';
-
-            $db=$this->db->prepare($sql);
-            $db->bindValue(':ID', $_GET['id'], PDO::PARAM_STR);
-            $db->execute();
-
-            $this->setData($db->fetch(PDO::FETCH_ASSOC));
-        }
-    }
-
-    public function getInPreparationProjects() {
-        $sql = 'SELECT * from `projects` WHERE `status` = "in_preparation";';
+    public function getNumberOfPublications() {
+        $sql = 'SELECT * from `publications`;';
 
         $db=$this->db->prepare($sql);
-        $db->execute();
-
-        return $db->fetchAll(PDO::FETCH_ASSOC);
+        $db->execute(); 
+            
+        return $db->rowCount();
     }
-
-    public function getInProgressProjects() {
-        $sql = 'SELECT * from `projects` WHERE `status` = "in_progress";';
-
-        $db=$this->db->prepare($sql);
-        $db->execute();
-
-        return $db->fetchAll(PDO::FETCH_ASSOC);
-    }*/
 
     public function insertAuthors ($idPublication, $idAuthor) {
          $sql='INSERT INTO `publications_and_collaborators` (`id_publication`, `id_collaborator`) VALUES (:idPublication, :idCollaborator);';
