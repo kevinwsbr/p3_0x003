@@ -53,7 +53,7 @@ $orientationsNumber = $orientation->getNumberOfOrientations();
         </div>
         <div class="col">
           <h5>Número total de produções</h5>
-          <p><?=$collaboratorsNumber.' publicações'?> e <?=$orientationsNumber.' orientações'?></p>
+          <p><?=$publicationsNumber.' publicações'?> e <?=$orientationsNumber.' orientações'?></p>
         </div>
       </div>
       <div class="row">

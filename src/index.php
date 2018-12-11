@@ -40,13 +40,13 @@ $orientations = $orientation->getOrientations();
           <a class="btn btn-success btn-block" href="cadastrar-colaborador.php" role="button">Cadastrar colaborador</a>
         </div>
         <div class="col">
-          <a class="btn btn-success btn-block" href="cadastrar-projeto.php" role="button">Cadastrar projeto</a>
+          <a class="btn btn-success btn-block <?php if($collaborator->getNumberOfTeachers() == 0) { echo 'disabled'; } ?>" href="cadastrar-projeto.php" role="button">Cadastrar projeto</a>
         </div>
         <div class="col">
-          <a class="btn btn-success btn-block" href="cadastrar-publicacao.php" role="button">Cadastrar publicação</a>
+          <a class="btn btn-success btn-block <?php if($collaborator->getNumberOfTeachers() == 0) { echo 'disabled'; } ?>" href="cadastrar-publicacao.php" role="button">Cadastrar publicação</a>
         </div>
         <div class="col">
-          <a class="btn btn-success btn-block" href="cadastrar-orientacao.php" role="button">Cadastrar orientação</a>
+          <a class="btn btn-success btn-block <?php if($collaborator->getNumberOfTeachers() == 0 || $collaborator->getNumberOfStudents() == 0) { echo 'disabled'; } ?>" href="cadastrar-orientacao.php" role="button">Cadastrar orientação</a>
         </div>
         <div class="col">
           <a class="btn btn-success btn-block" href="relatorio-de-produtividade.php" role="button">Emitir relatório</a>
@@ -58,6 +58,9 @@ $orientations = $orientation->getOrientations();
             <h3>Todos os projetos</h3>
             <div class="dropdown-divider"></div>
             <h5>Em preparação</h5>
+            <?php if($project->getNumberOfSpecificProjects('in_preparation') == 0) { ?>
+            <span class="d-block mb-3">Não existem nenhum projeto em preparação. <?php if($collaborator->getNumberOfTeachers() == 0)  { ?><br/> Adicione um professor para poder iniciar um projeto. <?php } else { ?>Que tal <a href="cadastrar-projeto.php">iniciar um?</a> <?php } ?></span>
+            <?php } else { ?>
             <table class="table">
           <thead class="text-white bg-danger">
             <tr>
@@ -78,7 +81,11 @@ $orientations = $orientation->getOrientations();
             <?php } ?>
           </tbody>
         </table>
+        <?php } ?>
         <h5>Em andamento</h5>
+        <?php if($project->getNumberOfSpecificProjects('in_progress') == 0) { ?>
+        <span class="d-block mb-3">Não existem nenhum projeto em andamento.</span>
+        <?php } else { ?>
         <small>Apenas é possível finalizar projetos que possuam publicações associadas.</small>
             <table class="table">
           <thead class="text-white bg-danger">
@@ -94,21 +101,17 @@ $orientations = $orientation->getOrientations();
                 <a href="detalhar-projeto.php?id=<?=$pro['ID']?>"><?=$pro['title']?></a>
               </td>
               <td>
-                <?php
-                
-                if($project->getNumberOfPublications($pro['ID']) > 0) {
-                  ?>
-                  <a class="btn btn-success btn-block" href="concluir-projeto.php?id=<?=$pro['ID']?>" role="button">Concluir projeto</a>
-                
-                
-                <?php } ?>
-                
+                  <a class="btn btn-success btn-block <?php if($project->getNumberOfPublications($pro['ID']) == 0) { echo 'disabled'; } ?>" href="concluir-projeto.php?id=<?=$pro['ID']?>" role="button">Concluir projeto</a>
               </td>
             </tr>
             <?php } ?>
           </tbody>
         </table>
+        <?php } ?>
         <h5>Concluídos</h5>
+        <?php if($project->getNumberOfSpecificProjects('completed') == 0) { ?>
+          <span class="d-block mb-3">Ainda não existe nenhum projeto finalizado.</span>
+        <?php } else { ?>
             <table class="table">
           <thead class="text-white bg-danger">
             <tr>
@@ -125,12 +128,20 @@ $orientations = $orientation->getOrientations();
             <?php } ?>
           </tbody>
         </table>
+        <?php } ?>
           </section>
         </div>
         <div class="col col-5">
           <section class="members">
             <h3>Colaboradores atuais</h3>
             <div class="dropdown-divider"></div>
+            <?php
+            if($collaborator->getNumberOfCollaborators() == 0) { ?>
+              <span class="d-block mb-3">Atualmente não há colaboradores cadastrados no laboratório.</span>
+            <?php
+            } else {
+            ?>
+            
             <table class="table">
           <thead class="text-white bg-danger">
             <tr>
@@ -167,6 +178,7 @@ $orientations = $orientation->getOrientations();
             <?php } ?>
           </tbody>
         </table>
+        <?php } ?>
           </section>
         </div>
       </div>
@@ -177,6 +189,9 @@ $orientations = $orientation->getOrientations();
           <div class="row">
             <div class="col">
               <h5>Publicações</h5>
+              <?php if($publication->getNumberOfPublications() == 0) { ?>
+                <span class="d-block mb-3">Ainda não existem publicações cadastradas.</span>
+              <?php } else { ?>
               <table class="table">
           <thead class="text-white bg-danger">
             <tr>
@@ -201,9 +216,13 @@ $orientations = $orientation->getOrientations();
             <?php } ?>
           </tbody>
         </table>
+        <?php } ?>
             </div>
             <div class="col">
               <h5>Orientações</h5>
+              <?php if($orientation->getNumberOfOrientations() == 0) { ?>
+                <span class="d-block mb-3">Nenhuma orientação foi registrada ainda.</span>
+              <?php } else { ?>
               <table class="table">
           <thead class="text-white bg-danger">
             <tr>
@@ -215,15 +234,16 @@ $orientations = $orientation->getOrientations();
             <?php foreach ($orientations as $ori) {?>
             <tr>
               <td scope="row">
-                <?=$pub['title']?>
+                <?=$ori['title']?>
               </td>
               <td>
-                <?=$pub['year']?>
+                <?=$ori['year']?>
               </td>
             </tr>
             <?php } ?>
           </tbody>
         </table>
+        <?php } ?>
             </div>
           </div>
         </div>

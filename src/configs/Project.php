@@ -237,7 +237,7 @@ class Project {
             }
 
             $db->execute();
-            header('Location: finalizar-elaboracao.php?id='.$_GET['id']);
+            header('Location: index.php');
         }
     }
 
