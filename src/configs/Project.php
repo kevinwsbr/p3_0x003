@@ -1,8 +1,6 @@
 <?php
 
-class Project {
-    protected $ID;
-    protected $title;
+class Project extends Production implements iProduction {
     protected $objective;
     protected $description;
     protected $fundingAgency;
@@ -11,21 +9,10 @@ class Project {
     protected $endDate;
     protected $status;
     protected $idResponsible;
-    protected $db;
 
     public function __construct($db)
     {
-        $this->db = $db;
-    }
-
-    public function getID ()
-    {
-        return $this->ID;
-    }
-
-    public function getTitle ()
-    {
-        return $this->title;
+        parent::__construct($db);
     }
 
     public function getObjective ()
@@ -66,19 +53,6 @@ class Project {
     public function getIDResponsible ()
     {
         return $this->idResponsible;
-    }
-
-    public function setData($project) {
-        $this->ID = $project['ID'];
-        $this->title = $project['title'];
-        $this->objective = $project['objective'];
-        $this->description = $project['description'];
-        $this->fundingAgency = $project['funding_agency'];
-        $this->financedAmount = $project['financed_amount'];
-        $this->startDate = $project['start_date'];
-        $this->endDate = $project['end_date'];
-        $this->status = $project['status'];
-        $this->idResponsible = $project['id_responsible'];
     }
 
     public function getProject() {
@@ -241,6 +215,19 @@ class Project {
         }
     }
 
+    public function setData($project) {
+        $this->ID = $project['ID'];
+        $this->title = $project['title'];
+        $this->objective = $project['objective'];
+        $this->description = $project['description'];
+        $this->fundingAgency = $project['funding_agency'];
+        $this->financedAmount = $project['financed_amount'];
+        $this->startDate = $project['start_date'];
+        $this->endDate = $project['end_date'];
+        $this->status = $project['status'];
+        $this->idResponsible = $project['id_responsible'];
+    }
+
     public function register() {
         if ($_SERVER['REQUEST_METHOD']=='POST') {
             $sql='INSERT INTO `projects` (`title`, `objective`, `description`, `funding_agency`, `financed_amount`, `start_date`, `end_date`, `status`, `id_responsible`) VALUES (:title, :objective, :description, :funding_agency, :financed_amount, :start_date, :end_date, :status, :idresponsible);';
@@ -292,4 +279,3 @@ class Project {
     }
     
 }
-?>

@@ -1,26 +1,13 @@
 <?php
 
-class Orientation {
-    protected $ID;
-    protected $title;
+class Orientation extends Production implements iProduction {
     protected $year;
     protected $idTeacher;
     protected $idStudent;
-    protected $db;
 
     public function __construct($db)
     {
-        $this->db = $db;
-    }
-
-    public function getID ()
-    {
-        return $this->ID;
-    }
-
-    public function getTitle ()
-    {
-        return $this->title;
+        parent::__construct($db);
     }
 
     public function getYear ()
@@ -93,4 +80,3 @@ class Orientation {
     }
     
 }
-?>

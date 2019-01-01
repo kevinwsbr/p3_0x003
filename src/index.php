@@ -7,10 +7,11 @@ require_once 'configs/Publication.php';
 require_once 'configs/Orientation.php';
 
 $conn = new Database();
-$collaborator = new Collaborator($conn->db);
-$project = new Project($conn->db);
-$publication = new Publication($conn->db);
-$orientation = new Orientation($conn->db);
+$db = $conn->getInstance();
+$collaborator = new Collaborator($db);
+$project = new Project($db);
+$publication = new Publication($db);
+$orientation = new Orientation($db);
 
 $collaborators = $collaborator->getCollaborators();
 $inPreProjects = $project->getInPreparationProjects();

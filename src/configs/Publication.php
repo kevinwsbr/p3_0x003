@@ -1,26 +1,13 @@
 <?php
 
-class Publication {
-    protected $ID;
-    protected $title;
+class Publication extends Production implements iProduction {
     protected $conferenceName;
     protected $year;
     protected $authors;
-    protected $db;
 
     public function __construct($db)
     {
-        $this->db = $db;
-    }
-
-    public function getID ()
-    {
-        return $this->ID;
-    }
-
-    public function getTitle ()
-    {
-        return $this->title;
+        parent::__construct($db);
     }
 
     public function getConferenceName ()
@@ -113,4 +100,3 @@ class Publication {
     }
     
 }
-?>
