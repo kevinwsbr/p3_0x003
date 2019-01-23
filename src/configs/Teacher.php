@@ -14,15 +14,4 @@ class Teacher extends Collaborator {
 
         return $db->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    public function getNumberOfTeachers() {
-        $sql='SELECT * FROM `collaborators` WHERE `role` = "teacher";';
-
-        $db=$this->db->prepare($sql);
-        $db->execute();
-
-        return $db->rowCount();
-    }
 }
-
-?>

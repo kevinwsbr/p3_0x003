@@ -21,15 +21,6 @@ class Student extends Collaborator
         return ($db->rowCount() < 2) ? 1 : 0;
     }
 
-    public function getNumberOfStudents() {
-        $sql='SELECT * FROM `collaborators` WHERE `role` = "grad_student";';
-
-        $db=$this->db->prepare($sql);
-        $db->execute();
-
-        return $db->rowCount();
-    }
-
     public function getGraduationStudents() {
         $sql='SELECT * FROM `collaborators` WHERE `role` = "grad_student";';
 

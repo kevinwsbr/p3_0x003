@@ -1,15 +1,13 @@
 <?php
 
-require_once 'configs/Database.php';
-require_once 'configs/Collaborator.php';
-require_once 'configs/Orientation.php';
+require_once 'configs/Autoload.php';
 
-$conn = new Database();
-$collaborator = new Collaborator($conn->db);
-$orientation = new Orientation($conn->db);
+$collaborator = new Teacher($conn->getInstance());
+$orientation = new Orientation($conn->getInstance());
+$student = new Student($conn->getInstance());
 
 $teachers = $collaborator->getTeachers();
-$students = $collaborator->getGraduationStudents();
+$students = $student->getGraduationStudents();
 
 $orientation->register();
 ?>

@@ -38,6 +38,24 @@ class Collaborator {
         return $this->institution;
     }
 
+    public function getNumberOfTeachers() {
+        $sql='SELECT * FROM `collaborators` WHERE `role` = "teacher";';
+
+        $db=$this->db->prepare($sql);
+        $db->execute();
+
+        return $db->rowCount();
+    }
+
+    public function getNumberOfStudents() {
+        $sql='SELECT * FROM `collaborators` WHERE `role` = "grad_student";';
+
+        $db=$this->db->prepare($sql);
+        $db->execute();
+
+        return $db->rowCount();
+    }
+
     public function getCollaborator($collaboratorID) {
         $sql='SELECT * FROM `collaborators` WHERE `ID` = :ID ;';
 

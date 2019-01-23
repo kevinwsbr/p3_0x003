@@ -1,14 +1,8 @@
 <?php
 
-require_once 'configs/Database.php';
-require_once 'configs/Collaborator.php';
-require_once 'configs/Project.php';
-require_once 'configs/Publication.php';
-require_once 'configs/Orientation.php';
+require_once 'configs/Autoload.php';
 
-$conn = new Database();
-$db = $conn->getInstance();
-$collaborator = new Collaborator($db);
+$collaborator = new Teacher($db);
 $project = new Project($db);
 $publication = new Publication($db);
 $orientation = new Orientation($db);
@@ -41,13 +35,13 @@ $orientations = $orientation->getOrientations();
           <a class="btn btn-success btn-block" href="cadastrar-colaborador.php" role="button">Cadastrar colaborador</a>
         </div>
         <div class="col">
-          <a class="btn btn-success btn-block <?php if($collaborator->getNumberOfTeachers() == 0) { echo 'disabled'; } ?>" href="cadastrar-projeto.php" role="button">Cadastrar projeto</a>
+          <a class="btn btn-success btn-block <?php if(!$collaborator->getNumberOfTeachers()) { echo 'disabled'; } ?>" href="cadastrar-projeto.php" role="button">Cadastrar projeto</a>
         </div>
         <div class="col">
-          <a class="btn btn-success btn-block <?php if($collaborator->getNumberOfTeachers() == 0) { echo 'disabled'; } ?>" href="cadastrar-publicacao.php" role="button">Cadastrar publicação</a>
+          <a class="btn btn-success btn-block <?php if(!$collaborator->getNumberOfTeachers()) { echo 'disabled'; } ?>" href="cadastrar-publicacao.php" role="button">Cadastrar publicação</a>
         </div>
         <div class="col">
-          <a class="btn btn-success btn-block <?php if($collaborator->getNumberOfTeachers() == 0 || $collaborator->getNumberOfStudents() == 0) { echo 'disabled'; } ?>" href="cadastrar-orientacao.php" role="button">Cadastrar orientação</a>
+          <a class="btn btn-success btn-block <?php if(!$collaborator->getNumberOfTeachers() || !$collaborator->getNumberOfStudents()) { echo 'disabled'; } ?>" href="cadastrar-orientacao.php" role="button">Cadastrar orientação</a>
         </div>
         <div class="col">
           <a class="btn btn-success btn-block" href="relatorio-de-produtividade.php" role="button">Emitir relatório</a>
