@@ -2,6 +2,8 @@
 
 SGPA is a fictional system of academic productivity management in PHP and created as the third project of the discipline of **Project of Software**. The demo can be viewed [here](kevinws.com.br/p3/sgpa).
 
+NOTE: PHP HAS NO SUPPORT TO GENERICS, SO IT HAS NOT BEEN IMPLEMENTED.
+
 ## What an admin can do?
 
 - Register new collabolators

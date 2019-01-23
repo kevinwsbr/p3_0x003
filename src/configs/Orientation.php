@@ -34,49 +34,64 @@ class Orientation extends Production implements iProduction {
     }
     
     public function getOrientations() {
-        $sql = 'SELECT * from `orientations`;';
+        try {
+            $sql = 'SELECT * from `orientations`;';
 
-        $db=$this->db->prepare($sql);
-        $db->execute();
+            $db=$this->db->prepare($sql);
+            $db->execute();
 
-        return $db->fetchAll(PDO::FETCH_ASSOC);
+            return $db->fetchAll(PDO::FETCH_ASSOC);
+        } catch(PDOException $e) {
+            echo 'Ops, o sistema apresentou o seguinte erro: ' . $e->getMessage();
+        }
     }
 
     public function getOrientationsOf($collaboratorID) {
-        $sql = 'SELECT * from `orientations` WHERE `id_teacher` = :collaboratorID OR `id_student` = :collaboratorID ORDER BY `year` DESC;';
+        try {
+            $sql = 'SELECT * from `orientations` WHERE `id_teacher` = :collaboratorID OR `id_student` = :collaboratorID ORDER BY `year` DESC;';
 
-        $db=$this->db->prepare($sql);
-        $db->bindValue(':collaboratorID', $collaboratorID, PDO::PARAM_STR);
+            $db=$this->db->prepare($sql);
+            $db->bindValue(':collaboratorID', $collaboratorID, PDO::PARAM_STR);
 
-        $db->execute();
+            $db->execute();
 
-        return $db->fetchAll(PDO::FETCH_ASSOC);
+            return $db->fetchAll(PDO::FETCH_ASSOC);
+        } catch(PDOException $e) {
+            echo 'Ops, o sistema apresentou o seguinte erro: ' . $e->getMessage();
+        }
     }
 
     public function getNumberOfOrientations() {
-        $sql = 'SELECT * from `orientations`;';
+        try {
+            $sql = 'SELECT * from `orientations`;';
 
-        $db=$this->db->prepare($sql);
-        $db->execute(); 
-            
-        return $db->rowCount();
+            $db=$this->db->prepare($sql);
+            $db->execute();
+
+            return $db->rowCount();
+        } catch(PDOException $e) {
+            echo 'Ops, o sistema apresentou o seguinte erro: ' . $e->getMessage();
+        }
     }
 
     public function register() {
-        if ($_SERVER['REQUEST_METHOD']=='POST') {
+        try {
+            if ($_SERVER['REQUEST_METHOD']=='POST') {
 
-            $sql='INSERT INTO `orientations` (`title`, `year`, `id_teacher`, `id_student`) VALUES (:title, :year, :idTeacher, :idStudent);';
+                $sql='INSERT INTO `orientations` (`title`, `year`, `id_teacher`, `id_student`) VALUES (:title, :year, :idTeacher, :idStudent);';
 
-            $db=$this->db->prepare($sql);
-            $db->bindValue(':title', $_POST['title'], PDO::PARAM_STR);
-            $db->bindValue(':year', $_POST['year'], PDO::PARAM_STR);
-            $db->bindValue(':idTeacher', $_POST['id_teacher'], PDO::PARAM_STR);
-            $db->bindValue(':idStudent', $_POST['id_student'], PDO::PARAM_STR);
-            
-            $db->execute();
+                $db=$this->db->prepare($sql);
+                $db->bindValue(':title', $_POST['title'], PDO::PARAM_STR);
+                $db->bindValue(':year', $_POST['year'], PDO::PARAM_STR);
+                $db->bindValue(':idTeacher', $_POST['id_teacher'], PDO::PARAM_STR);
+                $db->bindValue(':idStudent', $_POST['id_student'], PDO::PARAM_STR);
 
-            header('Location: index.php');
+                $db->execute();
+
+                header('Location: index.php');
+            }
+        } catch(PDOException $e) {
+            echo 'Ops, o sistema apresentou o seguinte erro: ' . $e->getMessage();
         }
     }
-    
 }
