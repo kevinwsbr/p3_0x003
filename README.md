@@ -1,6 +1,6 @@
 # Well, what's SGPA?
 
-SGPA is a fictional system of academic productivity management in PHP and created as the third project of the discipline of **Project of Software**.
+SGPA is a fictional system of academic productivity management in PHP and created as the third project of the discipline of **Project of Software**. The demo can be viewed [here](kevinws.com.br/p3/sgpa).
 
 ## What an admin can do?
 
@@ -12,8 +12,8 @@ SGPA is a fictional system of academic productivity management in PHP and create
 
 ## Dependencies
 
-- MySQL Server
-- PHP 7.0+
+- MySQL Server 5.7
+- PHP 7.0
 
 ## Right, and how to build that?
 
@@ -24,6 +24,8 @@ php -S localhost:<port>
 ```
 
 Finally, open `localhost:<port>` on your browser.
+
+OR SIMPLY CLICK [HERE](kevinws.com.br/p3/sgpa).
 
 ## License
 
