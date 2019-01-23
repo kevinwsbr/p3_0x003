@@ -1,16 +1,11 @@
 <?php
 
-require_once 'configs/Database.php';
-require_once 'configs/Collaborator.php';
-require_once 'configs/Project.php';
-require_once 'configs/Publication.php';
-require_once 'configs/Orientation.php';
+require_once 'configs/Autoload.php';
 
-$conn = new Database();
-$collaborator = new Collaborator($conn->db);
-$project = new Project($conn->db);
-$publication = new Publication($conn->db);
-$orientation = new Orientation($conn->db);
+$collaborator = new Teacher($db);
+$project = new Project($db);
+$publication = new Publication($db);
+$orientation = new Orientation($db);
 
 $collaborators = $collaborator->getCollaborators();
 $inPreProjects = $project->getInPreparationProjects();
@@ -40,13 +35,13 @@ $orientations = $orientation->getOrientations();
           <a class="btn btn-success btn-block" href="cadastrar-colaborador.php" role="button">Cadastrar colaborador</a>
         </div>
         <div class="col">
-          <a class="btn btn-success btn-block <?php if($collaborator->getNumberOfTeachers() == 0) { echo 'disabled'; } ?>" href="cadastrar-projeto.php" role="button">Cadastrar projeto</a>
+          <a class="btn btn-success btn-block <?php if(!$collaborator->getNumberOfTeachers()) { echo 'disabled'; } ?>" href="cadastrar-projeto.php" role="button">Cadastrar projeto</a>
         </div>
         <div class="col">
-          <a class="btn btn-success btn-block <?php if($collaborator->getNumberOfTeachers() == 0) { echo 'disabled'; } ?>" href="cadastrar-publicacao.php" role="button">Cadastrar publicação</a>
+          <a class="btn btn-success btn-block <?php if(!$collaborator->getNumberOfTeachers()) { echo 'disabled'; } ?>" href="cadastrar-publicacao.php" role="button">Cadastrar publicação</a>
         </div>
         <div class="col">
-          <a class="btn btn-success btn-block <?php if($collaborator->getNumberOfTeachers() == 0 || $collaborator->getNumberOfStudents() == 0) { echo 'disabled'; } ?>" href="cadastrar-orientacao.php" role="button">Cadastrar orientação</a>
+          <a class="btn btn-success btn-block <?php if(!$collaborator->getNumberOfTeachers() || !$collaborator->getNumberOfStudents()) { echo 'disabled'; } ?>" href="cadastrar-orientacao.php" role="button">Cadastrar orientação</a>
         </div>
         <div class="col">
           <a class="btn btn-success btn-block" href="relatorio-de-produtividade.php" role="button">Emitir relatório</a>

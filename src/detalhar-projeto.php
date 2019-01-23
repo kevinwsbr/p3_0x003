@@ -1,10 +1,8 @@
 <?php
 
-require_once 'configs/Database.php';
-require_once 'configs/Project.php';
+require_once 'configs/Autoload.php';
 
-$conn = new Database();
-$project = new Project($conn->db);
+$project = new Project($conn->getInstance());
 
 $project->getProject();
 $collaborators = $project->getCollaboratorsName($_GET['id']);

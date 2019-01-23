@@ -1,12 +1,9 @@
 <?php
 
-require_once 'configs/Database.php';
-require_once 'configs/Collaborator.php';
-require_once 'configs/Project.php';
+require_once 'configs/Autoload.php';
 
-$conn = new Database();
-$collaborator = new Collaborator($conn->db);
-$project = new Project($conn->db);
+$collaborator = new Teacher($conn->getInstance());
+$project = new Project($conn->getInstance());
 
 $collaborators = $collaborator->getCollaborators();
 $teachers = $collaborator->getTeachers();
@@ -17,10 +14,13 @@ $project->register();
 <html lang="pt-BR">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <title>Cadastrar Projeto | SGPA</title>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <title>Cadastrar projeto | SGPA</title>
 </head>
 
 <body>
@@ -77,13 +77,13 @@ $project->register();
               <div class="col">
                 <div class="form-group">
                     <label for="start_date">Data de início</label>
-                    <input type="date" name="start_date" class="form-control" id="start_date" value="<?php echo date("d/m/Y"); ?>">
+                    <input type="date" name="start_date" class="form-control" id="start_date" value="<?= date("d/m/Y"); ?>">
                 </div>
               </div>
               <div class="col">
                   <div class="form-group">
                     <label for="end_date">Data de término</label>
-                    <input type="date" name="end_date" class="form-control" id="end_date" value="<?php echo date("d/m/Y"); ?>">
+                    <input type="date" name="end_date" class="form-control" id="end_date" value="<?= date("d/m/Y"); ?>">
                 </div>
               </div>
           </div>

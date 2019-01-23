@@ -1,15 +1,19 @@
 <?php
 
-require_once 'configs/Database.php';
-require_once 'configs/Collaborator.php';
-require_once 'configs/Project.php';
+require_once 'configs/Autoload.php';
 
-$conn = new Database();
-$collaborator = new Collaborator($conn->db);
-$project = new Project($conn->db);
+$collaborator = new Collaborator($conn->getInstance());
 
+$student = new Student($conn->getInstance());
+$teacher = new Teacher($conn->getInstance());
+
+$gradStudents = $student->getGraduationStudents();
+
+$project = new Project($conn->getInstance());
 $project->getProject();
+
 $collaborators = $collaborator->getCollaboratorsExcept($project->getIDResponsible());
+
 $project->getStartDate();
 $project->finalizeDraft();
 ?>
@@ -81,8 +85,20 @@ $project->finalizeDraft();
         <div class="col col-3">
             <h4>Membros do projeto</h4>
             <div class="dropdown-divider"></div>
+
+            <?php foreach ($gradStudents as $col) {
+                if($student->isStudentAvailable($col['ID'])) {
+                    ?>
+                    <div class="form-check">
+                        <input class="form-check-input" name="members[]" type="checkbox" value="<?=$col['ID']?>" id="check_<?=$col['ID']?>">
+                        <label class="form-check-label" for="check_<?=$col['ID']?>">
+                            <?php echo $col['name']; ?>
+                        </label>
+                    </div>
+                <?php } } ?>
+
             <?php foreach ($collaborators as $col) {
-              if(($col['role'] == "grad_student" && $collaborator->isStudentAvailable($col['ID'])) || $col['role'] != "grad_student") {  
+              if($col['role'] != "grad_student") {
               ?>
                 <div class="form-check">
                     <input class="form-check-input" name="members[]" type="checkbox" value="<?=$col['ID']?>" id="check_<?=$col['ID']?>">

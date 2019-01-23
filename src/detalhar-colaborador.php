@@ -1,16 +1,12 @@
 <?php
 
-require_once 'configs/Database.php';
-require_once 'configs/Collaborator.php';
-require_once 'configs/Project.php';
-require_once 'configs/Publication.php';
-require_once 'configs/Orientation.php';
+require_once 'configs/Autoload.php';
 
 $conn = new Database();
-$collaborator = new Collaborator($conn->db);
-$project = new Project($conn->db);
-$publication = new Publication($conn->db);
-$orientation = new Orientation($conn->db);
+$collaborator = new Collaborator($conn->getInstance());
+$project = new Project($conn->getInstance());
+$publication = new Publication($conn->getInstance());
+$orientation = new Orientation($conn->getInstance());
 
 $collaborator->getCollaborator($_GET['id']);
 $projects = $collaborator->getProjects($_GET['id']);

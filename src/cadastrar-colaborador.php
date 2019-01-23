@@ -1,10 +1,8 @@
 <?php
 
-require_once 'configs/Database.php';
-require_once 'configs/Collaborator.php';
+require_once 'configs/Autoload.php';
 
-$conn = new Database();
-$collaborator = new Collaborator($conn->db);
+$collaborator = new Collaborator($conn->getInstance());
 $collaborator->register();
 
 ?>
